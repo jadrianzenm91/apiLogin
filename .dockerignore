@@ -1,0 +1,12 @@
+target/
+*.iml
+.idea/
+.mvn/
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+node_modules/
+.env
+.git/
