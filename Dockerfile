@@ -11,16 +11,17 @@ FROM eclipse-temurin:11-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/apilogin-0.0.1-SNAPSHOT.jar app.jar
 
-# Variables de entorno para la conexion a MySQL (sobreescribir en EasyPanel)
-ENV DB_URL=jdbc:mysql://localhost:3306/dbcobranza
+# Variables de entorno para la conexion a MySQL externo (configurar en EasyPanel)
+ENV DB_URL=jdbc:mysql://HOST_EXTERNO:3306/dbcobranza
 ENV DB_USERNAME=root
 ENV DB_PASSWORD=changeme
 ENV SERVER_PORT=8383
 
 EXPOSE 8383
 
-ENTRYPOINT ["java", "-jar", "app.jar", \
-  "--spring.datasource.url=${DB_URL}", \
-  "--spring.datasource.username=${DB_USERNAME}", \
-  "--spring.datasource.password=${DB_PASSWORD}", \
-  "--server.port=${SERVER_PORT}"]
+# Usar shell form para que las variables de entorno se expandan correctamente
+ENTRYPOINT java -jar app.jar \
+  --spring.datasource.url=${DB_URL} \
+  --spring.datasource.username=${DB_USERNAME} \
+  --spring.datasource.password=${DB_PASSWORD} \
+  --server.port=${SERVER_PORT}
