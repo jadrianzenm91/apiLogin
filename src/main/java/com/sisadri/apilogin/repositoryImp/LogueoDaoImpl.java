@@ -17,8 +17,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Types;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -42,16 +45,28 @@ public class LogueoDaoImpl implements LogueoDao{
      @Autowired
     public void setDataSource(DataSource dataSource) {
         this.login = new SimpleJdbcCall(dataSource)
-                .withProcedureName("usp_login");
+                .withCatalogName("dbcobranza")
+                .withProcedureName("usp_login")
+                .withoutProcedureColumnMetaDataAccess()
+                .declareParameters(
+                    new SqlParameter("v_usuario", Types.VARCHAR),
+                    new SqlParameter("v_password", Types.VARCHAR),
+                    new SqlOutParameter("MENSAJE", Types.VARCHAR)
+                );
         this.generarToken = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("usp_ins_token");
         this.validarToken = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("usp_validartoken");
         this.getFormulariosPortokenUsuario = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("USP_GET_FORMULARIO");
         this.getModulos = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("USP_SEL_MODULO");
         this.getSubModulos = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("USP_SEL_SUBMODULO");
         
     }

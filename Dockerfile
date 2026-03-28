@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=build /app/target/apilogin-0.0.1-SNAPSHOT.jar app.jar
 
 # Variables de entorno para la conexion a MySQL externo (configurar en EasyPanel)
-ENV DB_URL=jdbc:mysql://HOST_EXTERNO:3306/dbcobranza
+ENV DB_URL=jdbc:mysql://HOST_EXTERNO:3306/dbcobranza?noAccessToProcedureBodies=true
 ENV DB_USERNAME=root
 ENV DB_PASSWORD=changeme
 ENV SERVER_PORT=8383
