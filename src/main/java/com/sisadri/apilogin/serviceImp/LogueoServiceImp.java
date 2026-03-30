@@ -44,7 +44,7 @@ public class LogueoServiceImp implements LogueoService {
         try{
             String resultado = data.login(usuario);
            
-            msg.convert(resultado).withParameters(Message.Success);
+            msg.convert(resultado);
             
             if(msg.getSuccess()){//LOGIN OK
                 usuario = usuarioDao.getUsuario(usuario);
@@ -69,7 +69,7 @@ public class LogueoServiceImp implements LogueoService {
            
             
         }catch(Exception ex){
-            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             msg.setSuccess(Boolean.FALSE);
             msg.setType(Constantes.TypeAlerta.error);
             msg.setMessage(Constantes.Mensajes.ErrorSistema);
@@ -98,7 +98,7 @@ public class LogueoServiceImp implements LogueoService {
            
             
         }catch(Exception ex){
-            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             msg.setSuccess(Boolean.FALSE);
             msg.setType(Constantes.TypeAlerta.error);
             msg.setMessage(Constantes.Mensajes.ErrorSistema);
@@ -121,7 +121,7 @@ public class LogueoServiceImp implements LogueoService {
            
             
         }catch(Exception ex){
-            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogueoServiceImp.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             msg.setSuccess(Boolean.FALSE);
             msg.setType(Constantes.TypeAlerta.error);
             msg.setMessage(Constantes.Mensajes.ErrorSistema);

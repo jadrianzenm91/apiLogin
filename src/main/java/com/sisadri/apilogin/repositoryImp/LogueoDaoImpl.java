@@ -51,7 +51,7 @@ public class LogueoDaoImpl implements LogueoDao{
                 .declareParameters(
                     new SqlParameter("v_usuario", Types.VARCHAR),
                     new SqlParameter("v_password", Types.VARCHAR),
-                    new SqlOutParameter("MENSAJE", Types.VARCHAR)
+                    new SqlOutParameter("mensaje", Types.VARCHAR)
                 );
         this.generarToken = new SimpleJdbcCall(dataSource)
                 .withCatalogName("dbcobranza")
@@ -90,8 +90,8 @@ public class LogueoDaoImpl implements LogueoDao{
         String resultado = "";
         
         SqlParameterSource in = new MapSqlParameterSource()
-                .addValue("V_TOKEN", token.getToken())
-                .addValue("I_IDUSUARIO", token.getIdusuario());
+                .addValue("v_token", token.getToken())
+                .addValue("i_idusuario", token.getIdusuario());
          Map<String, Object> out = validarToken.execute(in);
          resultado = Format.toString(out.get("o_mensaje"));
         
@@ -118,8 +118,8 @@ public class LogueoDaoImpl implements LogueoDao{
         List<Menu> lstMenu = new ArrayList();
         
         SqlParameterSource in = new MapSqlParameterSource()
-                    .addValue("V_TOKEN", token)
-                    .addValue("V_CLAVEMENU", siglaMenu);
+                    .addValue("v_token", token)
+                    .addValue("v_clavemenu", siglaMenu);
         
             Map map = getFormulariosPortokenUsuario.execute(in);
             List<Map<String, Object>> result = (List<Map<String, Object>>) map.get("#result-set-"+1);
@@ -143,7 +143,7 @@ public class LogueoDaoImpl implements LogueoDao{
         List<Menu> lstMenu = new ArrayList();
         
         SqlParameterSource in = new MapSqlParameterSource()
-                    .addValue("V_TOKEN", token);
+                    .addValue("v_token", token);
         
             Map map = getModulos.execute(in);
             List<Map> result = (List<Map>) map.get("CV");
@@ -167,8 +167,8 @@ public class LogueoDaoImpl implements LogueoDao{
         List<Menu> lstMenu = new ArrayList();
         
         SqlParameterSource in = new MapSqlParameterSource()
-                    .addValue("V_TOKEN", token)
-                    .addValue("I_IDSUBMENU", idsubmenu);
+                    .addValue("v_token", token)
+                    .addValue("i_idsubmenu", idsubmenu);
         
             Map map = getSubModulos.execute(in);
             List<Map> result = (List<Map>) map.get("CV");

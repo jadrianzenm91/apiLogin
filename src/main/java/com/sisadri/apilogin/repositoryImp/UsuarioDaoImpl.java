@@ -30,6 +30,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
      @Autowired
     public void setDataSource(DataSource dataSource) {
         this.getUsuario = new SimpleJdbcCall(dataSource)
+                .withCatalogName("dbcobranza")
                 .withProcedureName("usp_sel_usuario_get");
       
     }
